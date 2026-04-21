@@ -1,0 +1,17 @@
+apiVersion: batch/v1
+kind: Job
+metadata:
+  name: post-sync-notify
+  namespace: sync-waves-demo
+  annotations:
+    argocd.argoproj.io/hook: PostSync
+    argocd.argoproj.io/hook-delete-policy: HookSucceeded
+spec:
+  template:
+    spec:
+      containers:
+      - name: notify
+        image: busybox
+        command: ["sh", "-c", "echo 'Deployment completed successfully!' && sleep 5"]
+      restartPolicy: Never
+  backoffLimit: 1

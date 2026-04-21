@@ -1,0 +1,27 @@
+apiVersion: argoproj.io/v1alpha1
+kind: AppProject
+metadata:
+  name: team-alpha
+  namespace: argocd
+spec:
+  description: Team Alpha's project
+  # Allow deploying only to specific namespaces
+  destinations:
+  - namespace: dev
+    server: https://kubernetes.default.svc
+  - namespace: staging
+    server: https://kubernetes.default.svc
+  # Allow only specific repos
+  sourceRepos:
+  - https://github.com/<YOUR-USERNAME>/argocd-practice.git
+  # Allow specific resource types
+  clusterResourceWhitelist:
+  - group: ''
+    kind: Namespace
+  namespaceResourceWhitelist:
+  - group: 'apps'
+    kind: Deployment
+  - group: ''
+    kind: Service
+  - group: ''
+    kind: ConfigMap
