@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: wave-app-service
+  namespace: sync-waves-demo
+  annotations:
+    argocd.argoproj.io/sync-wave: "2"
+spec:
+  selector:
+    app: wave-app
+  ports:
+  - port: 80
+    targetPort: 80
